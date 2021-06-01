@@ -1,7 +1,7 @@
-package org.jetbrains.plugins.template.services
+package com.github.gillesmoris.intellifold.services
 
+import com.github.gillesmoris.intellifold.MyBundle
 import com.intellij.openapi.project.Project
-import org.jetbrains.plugins.template.MyBundle
 
 class MyProjectService(project: Project) {
 

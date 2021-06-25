@@ -79,11 +79,22 @@ class JavaScriptRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
 
     companion object {
         fun makeRange(node: JSElement): TextRange {
+            // Fold everything up to the previous newline
+            var startOffset: Int? = null
             var start: PsiElement = node
             while (start.prevSibling is PsiWhiteSpace) {
-                start = start.prevSibling
+                val prev = start.prevSibling as PsiWhiteSpace
+                val newLineIndex = prev.text.indexOf('\n')
+                if (newLineIndex >= 0) {
+                    startOffset = prev.startOffset + newLineIndex
+                    break
+                }
+                start = prev
             }
-            return TextRange(start.startOffset, node.endOffset)
+            if (startOffset == null) {
+                startOffset = start.startOffset
+            }
+            return TextRange(startOffset, node.endOffset)
         }
     }
 

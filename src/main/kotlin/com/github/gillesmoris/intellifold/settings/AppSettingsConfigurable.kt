@@ -27,14 +27,13 @@ class AppSettingsConfigurable : Configurable {
 
     override fun isModified(): Boolean {
         val state = ConfigurationPersistentStateComponent.instance.state
-        val regexField = mySettingsComponent!!.regexField
-        return regexField.text.trim() != state.list.joinToString("\n")
+        val regexes = mySettingsComponent!!.regexes
+        return state.list != regexes
     }
 
     override fun apply() {
-        val regexField = mySettingsComponent!!.regexField
         val oldRegexes = ConfigurationPersistentStateComponent.instance.state.list
-        val newRegexes = regexField.text.trim().lines()
+        val newRegexes = mySettingsComponent!!.regexes
         ConfigurationPersistentStateComponent.instance.state.list = newRegexes
         if (ConfigurationPersistentStateComponent.instance.state.enabled && oldRegexes != newRegexes) {
             FileContentUtil.reparseOpenedFiles()
@@ -43,7 +42,7 @@ class AppSettingsConfigurable : Configurable {
 
     override fun reset() {
         val state = ConfigurationPersistentStateComponent.instance.state
-        mySettingsComponent?.regexField?.text = state.list.joinToString("\n")
+        mySettingsComponent?.regexes = state.list
     }
 
     override fun disposeUIResources() {

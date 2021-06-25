@@ -1,9 +1,7 @@
 package com.github.gillesmoris.intellifold.listeners
 
 import com.intellij.lang.folding.FoldingDescriptor
-import com.intellij.lang.javascript.psi.JSCallExpression
-import com.intellij.lang.javascript.psi.JSExpressionStatement
-import com.intellij.lang.javascript.psi.JSRecursiveWalkingElementVisitor
+import com.intellij.lang.javascript.psi.*
 import com.intellij.openapi.editor.Document
 import com.intellij.psi.PsiElement
 import com.intellij.util.containers.toArray
@@ -16,17 +14,63 @@ class JavaScriptRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
         val descriptors = mutableListOf<FoldingDescriptor>()
         if (root.language.isKindOf("JavaScript")) {
             root.accept(object : JSRecursiveWalkingElementVisitor() {
-                override fun visitJSCallExpression(node: JSCallExpression) {
-                    if (node.methodExpression!!.text == "console.log" && node.parent is JSExpressionStatement) {
-                        val statement = node.parent;
-                        val foldingDescriptor = FoldingDescriptor(statement.node, statement.textRange)
-                        descriptors.add(foldingDescriptor)
+                override fun visitJSIfStatement(node: JSIfStatement) {
+                    if (shouldFoldIf(node) == true) {
+                        descriptors.add(FoldingDescriptor(node, node.textRange))
+                        return
                     }
-                    super.visitJSCallExpression(node)
+                    super.visitJSIfStatement(node)
+                }
+
+                override fun visitJSExpressionStatement(node: JSExpressionStatement) {
+                    val expression = node.expression
+                    if (expression is JSCallExpression && shouldFoldCall(expression)) {
+                        descriptors.add(FoldingDescriptor(node, node.textRange))
+                        return
+                    }
+                    super.visitJSExpressionStatement(node)
                 }
             })
         }
         return descriptors.toArray(FoldingDescriptor.EMPTY)
+    }
+
+    fun shouldFoldIf(node: JSIfStatement): Boolean? {
+        var shouldFold: Boolean? = null
+        node.acceptChildren(object : JSElementVisitor() {
+            override fun visitJSIfStatement(node: JSIfStatement) {
+                shouldFold = when (shouldFold) {
+                    false -> false
+                    true -> shouldFoldIf(node) != false
+                    null -> shouldFoldIf(node)
+                }
+            }
+
+            override fun visitJSExpressionStatement(node: JSExpressionStatement) {
+                val expression = node.expression
+                shouldFold = if (expression is JSCallExpression) {
+                    when (shouldFold) {
+                        false -> false
+                        else -> shouldFoldCall(expression)
+                    }
+                } else {
+                    false
+                }
+            }
+
+            override fun visitJSBlock(node: JSBlockStatement) {
+                node.acceptChildren(this)
+            }
+
+            override fun visitJSStatement(node: JSStatement) {
+                shouldFold = false;
+            }
+        })
+        return shouldFold
+    }
+
+    fun shouldFoldCall(node: JSCallExpression): Boolean {
+        return node.methodExpression!!.text == "console.log" && node.parent is JSExpressionStatement;
     }
 
 }

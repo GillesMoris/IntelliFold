@@ -16,7 +16,7 @@
                popup="true"
                compact="true"
                icon="/icons/intellifold.svg">
-            <add-to-group group-id="ToolbarRunGroup" anchor="last"/>
+            <add-to-group group-id="ToolbarRunGroup" anchor="first"/>
         </group>
     </actions>
 

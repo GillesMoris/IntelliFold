@@ -70,7 +70,7 @@ class JavaScriptRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
     }
 
     fun shouldFoldCall(node: JSCallExpression): Boolean {
-        return node.methodExpression!!.text == "console.log" && node.parent is JSExpressionStatement;
+        return node.methodExpression!!.text == "console.log";
     }
 
 }

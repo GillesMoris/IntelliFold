@@ -11,10 +11,10 @@ import com.intellij.psi.PsiExpressionStatement
 import com.intellij.psi.PsiMethodCallExpression
 import com.intellij.util.containers.toArray
 
-class RegexFoldingBuilder() : FoldingBuilderEx(), DumbAware {
+class JavaRegexFoldingBuilder() : FoldingBuilderEx(), DumbAware {
 
     override fun buildFoldRegions(root: PsiElement, document: Document, quick: Boolean): Array<FoldingDescriptor> {
-        println("regexFoldingBuilder")
+        println("JavaRegexFoldingBuilder")
         if (quick) return emptyArray()
         val descriptors = mutableListOf<FoldingDescriptor>()
         when (root.language.id) {

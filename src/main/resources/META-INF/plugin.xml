@@ -6,13 +6,11 @@
     <!-- Product and plugin compatibility requirements -->
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
-    <depends>com.intellij.modules.java</depends>
+    <depends optional="true" config-file="intellifold-withJava.xml">com.intellij.modules.java</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="com.github.gillesmoris.intellifold.services.MyApplicationService"/>
         <projectService serviceImplementation="com.github.gillesmoris.intellifold.services.MyProjectService"/>
-        <lang.foldingBuilder language="JAVA"
-                             implementationClass="com.github.gillesmoris.intellifold.listeners.RegexFoldingBuilder"/>
         <applicationService serviceImplementation="com.github.gillesmoris.intellifold.services.ConfigurationPersistentStateComponent"/>
     </extensions>
 

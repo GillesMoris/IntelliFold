@@ -14,14 +14,16 @@ import com.intellij.refactoring.suggested.startOffset
 import com.intellij.util.containers.toArray
 
 abstract class AbstractRegexFoldingBuilder : FoldingBuilderEx(), DumbAware {
-    val regexes: List<Regex> = listOf(
-            Regex("""^System\.out\.println$"""),
-            Regex("""^console\.log$"""),
-    );
+    var regexes: List<Regex> = emptyList();
+
+    fun updateRegexes() {
+        regexes = ConfigurationPersistentStateComponent.instance.state.list.map { Regex(it) }
+    }
 
     override fun buildFoldRegions(root: PsiElement, document: Document, quick: Boolean): Array<FoldingDescriptor> {
         if (quick) return emptyArray()
         if (!ConfigurationPersistentStateComponent.instance.state.enabled) return emptyArray()
+        updateRegexes()
         val descriptors = buildFoldRegionsImpl(root, document)
         return descriptors.toArray(FoldingDescriptor.EMPTY)
     }

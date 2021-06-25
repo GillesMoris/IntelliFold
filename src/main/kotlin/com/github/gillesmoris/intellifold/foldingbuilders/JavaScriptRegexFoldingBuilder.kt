@@ -1,4 +1,4 @@
-package com.github.gillesmoris.intellifold.listeners
+package com.github.gillesmoris.intellifold.foldingbuilders
 
 import com.github.gillesmoris.intellifold.services.ConfigurationPersistentStateComponent
 import com.intellij.lang.folding.FoldingDescriptor

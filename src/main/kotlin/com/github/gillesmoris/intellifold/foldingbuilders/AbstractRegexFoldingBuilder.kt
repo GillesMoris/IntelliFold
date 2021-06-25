@@ -1,4 +1,4 @@
-package com.github.gillesmoris.intellifold.listeners
+package com.github.gillesmoris.intellifold.foldingbuilders
 
 import com.intellij.lang.ASTNode
 import com.intellij.lang.folding.FoldingBuilderEx

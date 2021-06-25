@@ -10,7 +10,7 @@ class FoldActionGroup: ActionGroup() {
     private val toggleFoldAction = ToggleFoldingAction()
     private val configureFoldAction = ConfigureFoldingAction()
     private val nonActiveIcon = IconLoader.getIcon("/icons/intellifold.svg")
-    private val activeIcon = com.intellij.execution.runners.ExecutionUtil.getLiveIndicator(nonActiveIcon)
+    private val activeIcon = IconLoader.getIcon("/icons/intellifold_live.svg")
 
     override fun getChildren(e: AnActionEvent?): Array<AnAction> {
         return arrayOf(

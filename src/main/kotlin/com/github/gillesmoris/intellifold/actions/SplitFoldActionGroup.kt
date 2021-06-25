@@ -2,7 +2,6 @@ package com.github.gillesmoris.intellifold.actions
 
 import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.actionSystem.Presentation
-import com.intellij.openapi.actionSystem.SplitButtonAction
 import com.intellij.openapi.actionSystem.ex.CustomComponentAction
 import javax.swing.JComponent
 

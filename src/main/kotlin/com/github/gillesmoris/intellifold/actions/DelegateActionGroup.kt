@@ -5,6 +5,9 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.DataContext
 
+/**
+ * Based on com.intellij.openapi.actionSystem.EmptyAction.MyDelegatingActionGroup
+ */
 open class DelegateActionGroup(val delegate: ActionGroup) : ActionGroup() {
     init {
         copyFrom(delegate)

@@ -1,5 +1,6 @@
 package com.github.gillesmoris.intellifold.settings
 
+import com.github.gillesmoris.intellifold.services.ConfigurationPersistentStateComponent
 import com.intellij.openapi.options.Configurable
 import org.jetbrains.annotations.Nls
 import javax.swing.JComponent
@@ -24,10 +25,11 @@ class AppSettingsConfigurable : Configurable {
     }
 
     override fun isModified(): Boolean {
-        return false
+        return true
     }
 
     override fun apply() {
+        ConfigurationPersistentStateComponent.instance.state.list = mySettingsComponent!!.regexField.text.trim().lines()
     }
 
     override fun reset() {

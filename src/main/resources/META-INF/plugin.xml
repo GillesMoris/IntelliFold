@@ -9,10 +9,26 @@
     <depends optional="true" config-file="intellifold-withJava.xml">com.intellij.modules.java</depends>
     <depends optional="true" config-file="intellifold-withJavaScript.xml">JavaScript</depends>
 
+    <actions>
+        <group id="org.intellij.sdk.action.GroupedActions"
+               text="Intellifold"
+               popup="true"
+               icon="/icons/intellifold_off.svg">
+            <add-to-group group-id="ToolbarRunGroup" anchor="last"/>
+            <action id="ToggleFoldingAction"
+                    class="com.github.gillesmoris.intellifold.actions.ToggleFoldingAction">
+            </action>
+            <action id="ConfigureFoldingAction"
+                    class="com.github.gillesmoris.intellifold.actions.ConfigureFoldingAction">
+            </action>
+        </group>
+    </actions>
+
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="com.github.gillesmoris.intellifold.services.MyApplicationService"/>
         <projectService serviceImplementation="com.github.gillesmoris.intellifold.services.MyProjectService"/>
-        <applicationService serviceImplementation="com.github.gillesmoris.intellifold.services.ConfigurationPersistentStateComponent"/>
+        <applicationService
+                serviceImplementation="com.github.gillesmoris.intellifold.services.ConfigurationPersistentStateComponent"/>
     </extensions>
 
     <applicationListeners>

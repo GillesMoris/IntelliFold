@@ -99,6 +99,11 @@ tasks {
         changeNotes.set(provider { changelog.getLatest().toHTML() })
     }
 
+    // runIde {
+    //     // Configure with correct path for testing on WebStorm
+    //     ideDir.set(File("C:\\Users\\User\\AppData\\Local\\JetBrains\\Toolbox\\apps\\WebStorm\\ch-0\\203.7148.54"))
+    // }
+
     runPluginVerifier {
         ideVersions.set(properties("pluginVerifierIdeVersions").split(',').map(String::trim).filter(String::isNotEmpty))
     }

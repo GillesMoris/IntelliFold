@@ -14,8 +14,8 @@ class JavaRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
         println("JavaRegexFoldingBuilder")
         if (quick) return emptyArray()
         val descriptors = mutableListOf<FoldingDescriptor>()
-        when (root.language.id) {
-            "JAVA" -> root.accept(object : JavaRecursiveElementVisitor() {
+        if (root.language.isKindOf("JAVA")) {
+            root.accept(object : JavaRecursiveElementVisitor() {
                 override fun visitMethodCallExpression(expression: PsiMethodCallExpression) {
                     if (expression.methodExpression.text == "System.out.println" && expression.parent is PsiExpressionStatement) {
                         val statement = expression.parent;

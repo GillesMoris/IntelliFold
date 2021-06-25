@@ -38,8 +38,8 @@ class AppSettingsComponent {
 
     // Shamelessly stolen from IntelliJ Community
     // https://github.com/JetBrains/intellij-community/blob/cefe3d90e0d1371f05a7555e3fdbdcef2c70c647/platform/lang-impl/src/com/intellij/openapi/fileTypes/impl/FileTypeConfigurable.java#L630
-    internal class RegexPanel(val model: DefaultListModel<String>) : JPanel() {
-        val list = JBList(model)
+    internal class RegexPanel(private val model: DefaultListModel<String>) : JPanel() {
+        private val list = JBList(model)
 
         init {
             layout = BorderLayout()

@@ -7,6 +7,7 @@
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
     <depends optional="true" config-file="intellifold-withJava.xml">com.intellij.modules.java</depends>
+    <depends optional="true" config-file="intellifold-withJavaScript.xml">JavaScript</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="com.github.gillesmoris.intellifold.services.MyApplicationService"/>

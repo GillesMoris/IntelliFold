@@ -11,7 +11,7 @@ import com.intellij.psi.PsiExpressionStatement
 import com.intellij.psi.PsiMethodCallExpression
 import com.intellij.util.containers.toArray
 
-class JavaRegexFoldingBuilder() : FoldingBuilderEx(), DumbAware {
+class JavaRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
 
     override fun buildFoldRegions(root: PsiElement, document: Document, quick: Boolean): Array<FoldingDescriptor> {
         println("JavaRegexFoldingBuilder")
@@ -32,11 +32,4 @@ class JavaRegexFoldingBuilder() : FoldingBuilderEx(), DumbAware {
         return descriptors.toArray(FoldingDescriptor.EMPTY)
     }
 
-    override fun getPlaceholderText(node: ASTNode): String {
-        return ""
-    }
-
-    override fun isCollapsedByDefault(node: ASTNode): Boolean {
-        return true
-    }
 }

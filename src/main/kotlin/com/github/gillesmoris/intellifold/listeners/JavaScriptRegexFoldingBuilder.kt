@@ -11,7 +11,7 @@ import com.intellij.openapi.project.DumbAware
 import com.intellij.psi.PsiElement
 import com.intellij.util.containers.toArray
 
-class JavaScriptRegexFoldingBuilder() : FoldingBuilderEx(), DumbAware {
+class JavaScriptRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
 
     override fun buildFoldRegions(root: PsiElement, document: Document, quick: Boolean): Array<FoldingDescriptor> {
         println("JavaScriptRegexFoldingBuilder")
@@ -32,11 +32,4 @@ class JavaScriptRegexFoldingBuilder() : FoldingBuilderEx(), DumbAware {
         return descriptors.toArray(FoldingDescriptor.EMPTY)
     }
 
-    override fun getPlaceholderText(node: ASTNode): String {
-        return ""
-    }
-
-    override fun isCollapsedByDefault(node: ASTNode): Boolean {
-        return true
-    }
 }

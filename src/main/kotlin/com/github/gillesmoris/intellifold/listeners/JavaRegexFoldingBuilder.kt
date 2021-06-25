@@ -58,7 +58,7 @@ class JavaRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
             }
 
             override fun visitBlockStatement(statement: PsiBlockStatement) {
-                statement.acceptChildren(this)
+                statement.codeBlock.acceptChildren(this)
             }
 
             override fun visitStatement(statement: PsiStatement) {

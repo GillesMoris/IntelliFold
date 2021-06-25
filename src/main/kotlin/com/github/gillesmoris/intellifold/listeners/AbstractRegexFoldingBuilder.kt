@@ -10,6 +10,15 @@ import com.intellij.refactoring.suggested.endOffset
 import com.intellij.refactoring.suggested.startOffset
 
 abstract class AbstractRegexFoldingBuilder : FoldingBuilderEx(), DumbAware {
+    val regexes: List<Regex> = listOf(
+            Regex("""^System\.out\.println$"""),
+            Regex("""^console\.log$"""),
+    );
+
+    fun shouldFoldCall(call: String): Boolean {
+        return regexes.any { it.matches(call) }
+    }
+
     override fun getPlaceholderText(node: ASTNode): String {
         return ""
     }

@@ -69,7 +69,7 @@ class JavaRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
     }
 
     fun shouldFoldCallExpression(node: PsiMethodCallExpression): Boolean {
-        return node.methodExpression.text == "System.out.println";
+        return shouldFoldCall(node.methodExpression.text);
     }
 
 }

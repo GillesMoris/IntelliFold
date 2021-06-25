@@ -12,6 +12,7 @@
         <projectService serviceImplementation="com.github.gillesmoris.intellifold.services.MyProjectService"/>
         <lang.foldingBuilder language="JAVA"
                              implementationClass="com.github.gillesmoris.intellifold.listeners.RegexFoldingBuilder"/>
+        <applicationService serviceImplementation="com.github.gillesmoris.intellifold.services.ConfigurationPersistentStateComponent"/>
     </extensions>
 
     <applicationListeners>

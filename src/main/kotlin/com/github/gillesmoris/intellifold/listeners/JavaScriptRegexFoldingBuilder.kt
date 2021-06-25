@@ -3,7 +3,11 @@ package com.github.gillesmoris.intellifold.listeners
 import com.intellij.lang.folding.FoldingDescriptor
 import com.intellij.lang.javascript.psi.*
 import com.intellij.openapi.editor.Document
+import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiWhiteSpace
+import com.intellij.refactoring.suggested.endOffset
+import com.intellij.refactoring.suggested.startOffset
 import com.intellij.util.containers.toArray
 
 class JavaScriptRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
@@ -16,7 +20,7 @@ class JavaScriptRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
             root.accept(object : JSRecursiveWalkingElementVisitor() {
                 override fun visitJSIfStatement(node: JSIfStatement) {
                     if (shouldFoldIf(node) == true) {
-                        descriptors.add(FoldingDescriptor(node, node.textRange))
+                        descriptors.add(FoldingDescriptor(node, makeRange(node)))
                         return
                     }
                     super.visitJSIfStatement(node)
@@ -25,7 +29,7 @@ class JavaScriptRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
                 override fun visitJSExpressionStatement(node: JSExpressionStatement) {
                     val expression = node.expression
                     if (expression is JSCallExpression && shouldFoldCall(expression)) {
-                        descriptors.add(FoldingDescriptor(node, node.textRange))
+                        descriptors.add(FoldingDescriptor(node, makeRange(node)))
                         return
                     }
                     super.visitJSExpressionStatement(node)
@@ -71,6 +75,16 @@ class JavaScriptRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
 
     fun shouldFoldCall(node: JSCallExpression): Boolean {
         return node.methodExpression!!.text == "console.log" && node.parent is JSExpressionStatement;
+    }
+
+    companion object {
+        fun makeRange(node: JSElement): TextRange {
+            var start: PsiElement = node
+            while (start.prevSibling is PsiWhiteSpace) {
+                start = start.prevSibling
+            }
+            return TextRange(start.startOffset, node.endOffset)
+        }
     }
 
 }

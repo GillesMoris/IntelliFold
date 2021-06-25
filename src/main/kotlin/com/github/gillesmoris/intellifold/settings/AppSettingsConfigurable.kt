@@ -15,8 +15,8 @@ class AppSettingsConfigurable : Configurable {
         return "SDK: Application Settings Example"
     }
 
-    override fun getPreferredFocusedComponent(): JComponent {
-        return mySettingsComponent!!.getPreferredFocusedComponent()
+    override fun getPreferredFocusedComponent(): JComponent? {
+        return mySettingsComponent?.getPreferredFocusedComponent()
     }
 
     override fun createComponent(): JComponent? {
@@ -25,14 +25,19 @@ class AppSettingsConfigurable : Configurable {
     }
 
     override fun isModified(): Boolean {
-        return true
+        val state = ConfigurationPersistentStateComponent.instance.state
+        val regexField = mySettingsComponent!!.regexField
+        return regexField.text.trim() != state.list.joinToString("\n")
     }
 
     override fun apply() {
-        ConfigurationPersistentStateComponent.instance.state.list = mySettingsComponent!!.regexField.text.trim().lines()
+        val regexField = mySettingsComponent!!.regexField
+        ConfigurationPersistentStateComponent.instance.state.list = regexField.text.trim().lines()
     }
 
     override fun reset() {
+        val state = ConfigurationPersistentStateComponent.instance.state
+        mySettingsComponent?.regexField?.text = state.list.joinToString("\n")
     }
 
     override fun disposeUIResources() {

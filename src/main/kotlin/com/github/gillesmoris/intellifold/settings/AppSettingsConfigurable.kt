@@ -13,7 +13,7 @@ class AppSettingsConfigurable : Configurable {
     private var mySettingsComponent: AppSettingsComponent? = null
 
     override fun getDisplayName(): @Nls(capitalization = Nls.Capitalization.Title) String? {
-        return "SDK: Application Settings Example"
+        return "Intellifold"
     }
 
     override fun getPreferredFocusedComponent(): JComponent? {

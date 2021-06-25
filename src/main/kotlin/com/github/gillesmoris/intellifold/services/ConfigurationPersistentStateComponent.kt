@@ -7,7 +7,7 @@ import com.intellij.openapi.components.Storage
 
 @State(name = "ConfigurationPersistentStateComponent", storages = [Storage("intellifold-plugin.xml")])
 open class ConfigurationPersistentStateComponent :
-    PersistentStateComponent<ConfigurationPersistentStateComponent.ConfigurationState> {
+        PersistentStateComponent<ConfigurationPersistentStateComponent.ConfigurationState> {
 
     // this is how we're going to call the component from different classes
     companion object {

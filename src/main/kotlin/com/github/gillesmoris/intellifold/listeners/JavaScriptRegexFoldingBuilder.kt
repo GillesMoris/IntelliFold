@@ -3,11 +3,7 @@ package com.github.gillesmoris.intellifold.listeners
 import com.intellij.lang.folding.FoldingDescriptor
 import com.intellij.lang.javascript.psi.*
 import com.intellij.openapi.editor.Document
-import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiWhiteSpace
-import com.intellij.refactoring.suggested.endOffset
-import com.intellij.refactoring.suggested.startOffset
 import com.intellij.util.containers.toArray
 
 class JavaScriptRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
@@ -75,27 +71,6 @@ class JavaScriptRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
 
     fun shouldFoldCall(node: JSCallExpression): Boolean {
         return node.methodExpression!!.text == "console.log" && node.parent is JSExpressionStatement;
-    }
-
-    companion object {
-        fun makeRange(node: JSElement): TextRange {
-            // Fold everything up to the previous newline
-            var startOffset: Int? = null
-            var start: PsiElement = node
-            while (start.prevSibling is PsiWhiteSpace) {
-                val prev = start.prevSibling as PsiWhiteSpace
-                val newLineIndex = prev.text.indexOf('\n')
-                if (newLineIndex >= 0) {
-                    startOffset = prev.startOffset + newLineIndex
-                    break
-                }
-                start = prev
-            }
-            if (startOffset == null) {
-                startOffset = start.startOffset
-            }
-            return TextRange(startOffset, node.endOffset)
-        }
     }
 
 }

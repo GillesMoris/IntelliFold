@@ -25,6 +25,11 @@
                 serviceImplementation="com.github.gillesmoris.intellifold.services.ConfigurationPersistentStateComponent"/>
         <applicationService serviceImplementation="com.github.gillesmoris.intellifold.services.MyApplicationService"/>
         <projectService serviceImplementation="com.github.gillesmoris.intellifold.services.MyProjectService"/>
+
+        <applicationService serviceImplementation="com.github.gillesmoris.intellifold.settings.AppSettingsState"/>
+        <applicationConfigurable parentId="tools" instance="com.github.gillesmoris.intellifold.settings.AppSettingsConfigurable"
+                                 id="com.github.gillesmoris.intellifold.settings.AppSettingsConfigurable"
+                                 displayName="Intellifold: Application Settings Example"/>
     </extensions>
 
     <applicationListeners>

@@ -11,16 +11,12 @@
 
     <actions>
         <group id="org.intellij.sdk.action.GroupedActions"
+               class="com.github.gillesmoris.intellifold.actions.FoldActionGroup"
                text="Intellifold"
                popup="true"
+               compact="true"
                icon="/icons/intellifold_off.svg">
             <add-to-group group-id="ToolbarRunGroup" anchor="last"/>
-            <action id="ToggleFoldingAction"
-                    class="com.github.gillesmoris.intellifold.actions.ToggleFoldingAction">
-            </action>
-            <action id="ConfigureFoldingAction"
-                    class="com.github.gillesmoris.intellifold.actions.ConfigureFoldingAction">
-            </action>
         </group>
     </actions>
 

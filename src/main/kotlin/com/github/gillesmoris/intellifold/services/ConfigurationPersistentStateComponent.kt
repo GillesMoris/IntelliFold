@@ -15,15 +15,15 @@ open class ConfigurationPersistentStateComponent :
             get() = ServiceManager.getService(ConfigurationPersistentStateComponent::class.java)
     }
 
-    private var reminderState: ConfigurationState = ConfigurationState(listOf())
+    private var reminderState: ConfigurationState = ConfigurationState(false, listOf())
 
     override fun getState(): ConfigurationState {
         return reminderState
     }
 
     override fun loadState(state: ConfigurationState) {
-        reminderState = state
+        reminderState = ConfigurationState(false, state.list)
     }
 
-    class ConfigurationState(var list: List<String>)
+    class ConfigurationState(var enabled: Boolean = false, var list: List<String>)
 }

@@ -11,7 +11,7 @@
 
     <actions>
         <group id="org.intellij.sdk.action.GroupedActions"
-               class="com.github.gillesmoris.intellifold.actions.FoldActionGroup"
+               class="com.github.gillesmoris.intellifold.actions.SplitFoldActionGroup"
                text="Intellifold"
                popup="true"
                compact="true"

@@ -14,7 +14,7 @@ class JavaRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
         if (root.language.isKindOf("JAVA")) {
             root.accept(object : JavaRecursiveElementVisitor() {
                 override fun visitIfStatement(statement: PsiIfStatement) {
-                    if (shouldFoldIf(statement) == true) {
+                    if (shouldFoldIfStatement(statement) == true) {
                         descriptors.add(FoldingDescriptor(statement, makeRange(statement)))
                         return
                     }
@@ -23,7 +23,7 @@ class JavaRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
 
                 override fun visitExpressionStatement(statement: PsiExpressionStatement) {
                     val expression = statement.expression
-                    if (expression is PsiMethodCallExpression && shouldFoldCall(expression)) {
+                    if (expression is PsiMethodCallExpression && shouldFoldCallExpression(expression)) {
                         descriptors.add(FoldingDescriptor(statement, makeRange(statement)))
                         return
                     }
@@ -34,14 +34,14 @@ class JavaRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
         return descriptors.toArray(FoldingDescriptor.EMPTY)
     }
 
-    fun shouldFoldIf(statement: PsiIfStatement): Boolean? {
+    fun shouldFoldIfStatement(statement: PsiIfStatement): Boolean? {
         var shouldFold: Boolean? = null
         statement.acceptChildren(object : JavaElementVisitor() {
             override fun visitIfStatement(statement: PsiIfStatement) {
                 shouldFold = when (shouldFold) {
                     false -> false
-                    true -> shouldFoldIf(statement) != false
-                    null -> shouldFoldIf(statement)
+                    true -> shouldFoldIfStatement(statement) != false
+                    null -> shouldFoldIfStatement(statement)
                 }
             }
 
@@ -50,7 +50,7 @@ class JavaRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
                 shouldFold = if (expression is PsiMethodCallExpression) {
                     when (shouldFold) {
                         false -> false
-                        else -> shouldFoldCall(expression)
+                        else -> shouldFoldCallExpression(expression)
                     }
                 } else {
                     false
@@ -68,7 +68,7 @@ class JavaRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
         return shouldFold
     }
 
-    fun shouldFoldCall(node: PsiMethodCallExpression): Boolean {
+    fun shouldFoldCallExpression(node: PsiMethodCallExpression): Boolean {
         return node.methodExpression.text == "System.out.println";
     }
 

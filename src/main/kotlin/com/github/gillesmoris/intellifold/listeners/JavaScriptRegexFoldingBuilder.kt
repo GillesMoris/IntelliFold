@@ -15,7 +15,7 @@ class JavaScriptRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
         if (root.language.isKindOf("JavaScript")) {
             root.accept(object : JSRecursiveWalkingElementVisitor() {
                 override fun visitJSIfStatement(node: JSIfStatement) {
-                    if (shouldFoldIf(node) == true) {
+                    if (shouldFoldIfStatement(node) == true) {
                         descriptors.add(FoldingDescriptor(node, makeRange(node)))
                         return
                     }
@@ -24,7 +24,7 @@ class JavaScriptRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
 
                 override fun visitJSExpressionStatement(node: JSExpressionStatement) {
                     val expression = node.expression
-                    if (expression is JSCallExpression && shouldFoldCall(expression)) {
+                    if (expression is JSCallExpression && shouldFoldCallExpression(expression)) {
                         descriptors.add(FoldingDescriptor(node, makeRange(node)))
                         return
                     }
@@ -35,14 +35,14 @@ class JavaScriptRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
         return descriptors.toArray(FoldingDescriptor.EMPTY)
     }
 
-    fun shouldFoldIf(node: JSIfStatement): Boolean? {
+    fun shouldFoldIfStatement(node: JSIfStatement): Boolean? {
         var shouldFold: Boolean? = null
         node.acceptChildren(object : JSElementVisitor() {
             override fun visitJSIfStatement(node: JSIfStatement) {
                 shouldFold = when (shouldFold) {
                     false -> false
-                    true -> shouldFoldIf(node) != false
-                    null -> shouldFoldIf(node)
+                    true -> shouldFoldIfStatement(node) != false
+                    null -> shouldFoldIfStatement(node)
                 }
             }
 
@@ -51,7 +51,7 @@ class JavaScriptRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
                 shouldFold = if (expression is JSCallExpression) {
                     when (shouldFold) {
                         false -> false
-                        else -> shouldFoldCall(expression)
+                        else -> shouldFoldCallExpression(expression)
                     }
                 } else {
                     false
@@ -69,7 +69,7 @@ class JavaScriptRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
         return shouldFold
     }
 
-    fun shouldFoldCall(node: JSCallExpression): Boolean {
+    fun shouldFoldCallExpression(node: JSCallExpression): Boolean {
         return node.methodExpression!!.text == "console.log";
     }
 

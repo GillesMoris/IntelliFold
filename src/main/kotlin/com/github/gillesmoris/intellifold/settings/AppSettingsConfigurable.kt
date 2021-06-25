@@ -2,6 +2,7 @@ package com.github.gillesmoris.intellifold.settings
 
 import com.github.gillesmoris.intellifold.services.ConfigurationPersistentStateComponent
 import com.intellij.openapi.options.Configurable
+import com.intellij.util.FileContentUtil
 import org.jetbrains.annotations.Nls
 import javax.swing.JComponent
 
@@ -32,7 +33,12 @@ class AppSettingsConfigurable : Configurable {
 
     override fun apply() {
         val regexField = mySettingsComponent!!.regexField
-        ConfigurationPersistentStateComponent.instance.state.list = regexField.text.trim().lines()
+        val oldRegexes = ConfigurationPersistentStateComponent.instance.state.list
+        val newRegexes = regexField.text.trim().lines()
+        ConfigurationPersistentStateComponent.instance.state.list = newRegexes
+        if (ConfigurationPersistentStateComponent.instance.state.enabled && oldRegexes != newRegexes) {
+            FileContentUtil.reparseOpenedFiles()
+        }
     }
 
     override fun reset() {

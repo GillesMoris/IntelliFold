@@ -25,10 +25,10 @@
     </actions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.gillesmoris.intellifold.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.gillesmoris.intellifold.services.MyProjectService"/>
         <applicationService
                 serviceImplementation="com.github.gillesmoris.intellifold.services.ConfigurationPersistentStateComponent"/>
+        <applicationService serviceImplementation="com.github.gillesmoris.intellifold.services.MyApplicationService"/>
+        <projectService serviceImplementation="com.github.gillesmoris.intellifold.services.MyProjectService"/>
     </extensions>
 
     <applicationListeners>

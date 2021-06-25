@@ -10,6 +10,8 @@
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="com.github.gillesmoris.intellifold.services.MyApplicationService"/>
         <projectService serviceImplementation="com.github.gillesmoris.intellifold.services.MyProjectService"/>
+        <lang.foldingBuilder language="JAVA"
+                             implementationClass="com.github.gillesmoris.intellifold.listeners.RegexFoldingBuilder"/>
     </extensions>
 
     <applicationListeners>

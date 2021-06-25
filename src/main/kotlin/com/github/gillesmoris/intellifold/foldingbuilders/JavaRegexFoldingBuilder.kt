@@ -1,17 +1,12 @@
 package com.github.gillesmoris.intellifold.foldingbuilders
 
-import com.github.gillesmoris.intellifold.services.ConfigurationPersistentStateComponent
 import com.intellij.lang.folding.FoldingDescriptor
 import com.intellij.openapi.editor.Document
 import com.intellij.psi.*
-import com.intellij.util.containers.toArray
 
 class JavaRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
 
-    override fun buildFoldRegions(root: PsiElement, document: Document, quick: Boolean): Array<FoldingDescriptor> {
-        println("JavaRegexFoldingBuilder")
-        if (quick) return emptyArray()
-        if (!ConfigurationPersistentStateComponent.instance.state.enabled) return emptyArray()
+    override fun buildFoldRegionsImpl(root: PsiElement, document: Document): List<FoldingDescriptor> {
         val descriptors = mutableListOf<FoldingDescriptor>()
         if (root.language.isKindOf("JAVA")) {
             root.accept(object : JavaRecursiveElementVisitor() {
@@ -33,7 +28,7 @@ class JavaRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
                 }
             })
         }
-        return descriptors.toArray(FoldingDescriptor.EMPTY)
+        return descriptors
     }
 
     fun shouldFoldIfStatement(statement: PsiIfStatement): Boolean? {

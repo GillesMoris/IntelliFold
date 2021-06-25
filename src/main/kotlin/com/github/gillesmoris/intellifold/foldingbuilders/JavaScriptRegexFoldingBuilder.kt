@@ -1,18 +1,13 @@
 package com.github.gillesmoris.intellifold.foldingbuilders
 
-import com.github.gillesmoris.intellifold.services.ConfigurationPersistentStateComponent
 import com.intellij.lang.folding.FoldingDescriptor
 import com.intellij.lang.javascript.psi.*
 import com.intellij.openapi.editor.Document
 import com.intellij.psi.PsiElement
-import com.intellij.util.containers.toArray
 
 class JavaScriptRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
 
-    override fun buildFoldRegions(root: PsiElement, document: Document, quick: Boolean): Array<FoldingDescriptor> {
-        println("JavaScriptRegexFoldingBuilder")
-        if (quick) return emptyArray()
-        if (!ConfigurationPersistentStateComponent.instance.state.enabled) return emptyArray()
+    override fun buildFoldRegionsImpl(root: PsiElement, document: Document): List<FoldingDescriptor> {
         val descriptors = mutableListOf<FoldingDescriptor>()
         if (root.language.isKindOf("JavaScript")) {
             root.accept(object : JSRecursiveWalkingElementVisitor() {
@@ -34,7 +29,7 @@ class JavaScriptRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
                 }
             })
         }
-        return descriptors.toArray(FoldingDescriptor.EMPTY)
+        return descriptors
     }
 
     fun shouldFoldIfStatement(node: JSIfStatement): Boolean? {

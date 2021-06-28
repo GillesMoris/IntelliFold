@@ -1,6 +1,6 @@
 package com.github.gillesmoris.intellifold.actions
 
-import com.github.gillesmoris.intellifold.services.ConfigurationPersistentStateComponent
+import com.github.gillesmoris.intellifold.settings.AppSettingsState
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.util.IconLoader
@@ -15,7 +15,7 @@ class ToggleFoldingAction : AnAction(ENABLE_TEXT, "", nonActiveIcon) {
 
     override fun actionPerformed(event: AnActionEvent) {
         enabled = !enabled
-        ConfigurationPersistentStateComponent.instance.state.enabled = enabled
+        AppSettingsState.instance.state.enabled = enabled
         FileContentUtil.reparseOpenedFiles()
     }
 

@@ -1,6 +1,6 @@
 package com.github.gillesmoris.intellifold.foldingbuilders
 
-import com.github.gillesmoris.intellifold.services.ConfigurationPersistentStateComponent
+import com.github.gillesmoris.intellifold.settings.AppSettingsState
 import com.intellij.lang.ASTNode
 import com.intellij.lang.folding.FoldingBuilderEx
 import com.intellij.lang.folding.FoldingDescriptor
@@ -17,12 +17,12 @@ abstract class AbstractRegexFoldingBuilder : FoldingBuilderEx(), DumbAware {
     var regexes: List<Regex> = emptyList();
 
     fun updateRegexes() {
-        regexes = ConfigurationPersistentStateComponent.instance.state.list.map { Regex(it) }
+        regexes = AppSettingsState.instance.state.list.map { Regex(it) }
     }
 
     override fun buildFoldRegions(root: PsiElement, document: Document, quick: Boolean): Array<FoldingDescriptor> {
         if (quick) return emptyArray()
-        if (!ConfigurationPersistentStateComponent.instance.state.enabled) return emptyArray()
+        if (!AppSettingsState.instance.state.enabled) return emptyArray()
         updateRegexes()
         val descriptors = buildFoldRegionsImpl(root, document)
         return descriptors.toArray(FoldingDescriptor.EMPTY)

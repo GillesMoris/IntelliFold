@@ -10,14 +10,10 @@
     <depends optional="true" config-file="intellifold-withJavaScript.xml">JavaScript</depends>
 
     <actions>
-        <group id="org.intellij.sdk.action.GroupedActions"
-               class="com.github.gillesmoris.intellifold.actions.SplitFoldActionGroup"
-               text="Intellifold"
-               popup="true"
-               compact="true"
-               icon="/icons/intellifold.svg">
+        <action id="ToggleFoldingAction"
+                class="com.github.gillesmoris.intellifold.actions.ToggleFoldingAction">
             <add-to-group group-id="ToolbarRunGroup" anchor="first"/>
-        </group>
+        </action>
     </actions>
 
     <extensions defaultExtensionNs="com.intellij">

@@ -5,7 +5,12 @@ import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
 
-@State(name = "AppSettingsState", storages = [Storage("intellifold-plugin.xml")])
+/**
+ * Supports storing the application settings in a persistent way.
+ * The [State] and [Storage] annotations define the name of the data and the file name where
+ * these persistent application settings are stored.
+ */
+@State(name = "com.github.gillesmoris.intellifold.settings", storages = [Storage("intellifold-plugin.xml")])
 open class AppSettingsState :
         PersistentStateComponent<AppSettingsState.ConfigurationState> {
 

@@ -48,16 +48,16 @@ class AppSettingsComponent {
             list.border = JBUI.Borders.empty()
             val decorator: ToolbarDecorator = ToolbarDecorator.createDecorator(list)
                     .setScrollPaneBorder(JBUI.Borders.empty())
-                    .setPanelBorder(JBUI.Borders.customLine(JBColor.border(), 1, 0, 1, 1))
+                    .setPanelBorder(JBUI.Borders.customLine(JBColor.border(), 1, 1, 0, 1))
                     .setAddAction { _ -> addRegex() }
                     .setAddActionName("Add Regex")
                     .setEditAction { _ -> editRegex() }
                     .setRemoveAction { _ -> removeRegex() }
                     .disableUpDownActions()
-            add(decorator.createPanel(), BorderLayout.EAST)
+            add(decorator.createPanel(), BorderLayout.NORTH)
             val scrollPane: JScrollPane = JBScrollPane(list)
             add(scrollPane, BorderLayout.CENTER)
-            scrollPane.border = JBUI.Borders.customLine(JBColor.border(), 1, 1, 1, 0)
+            scrollPane.border = JBUI.Borders.customLine(JBColor.border(), 0, 1, 1, 1)
             border = IdeBorderFactory.createTitledBorder("Regexes:", false, TITLE_INSETS).setShowLine(false)
         }
 

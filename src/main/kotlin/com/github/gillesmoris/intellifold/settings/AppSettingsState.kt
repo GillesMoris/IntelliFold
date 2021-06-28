@@ -26,7 +26,7 @@ open class AppSettingsState : PersistentStateComponent<AppSettingsState.Configur
     }
 
     override fun loadState(state: ConfigurationState) {
-        this.state = ConfigurationState(false, state.list)
+        this.state = state
     }
 
     class ConfigurationState(var enabled: Boolean = false, var list: List<String> = listOf())

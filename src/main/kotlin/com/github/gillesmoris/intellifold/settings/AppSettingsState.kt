@@ -11,8 +11,7 @@ import com.intellij.openapi.components.Storage
  * these persistent application settings are stored.
  */
 @State(name = "com.github.gillesmoris.intellifold.settings", storages = [Storage("intellifold-plugin.xml")])
-open class AppSettingsState :
-        PersistentStateComponent<AppSettingsState.ConfigurationState> {
+open class AppSettingsState : PersistentStateComponent<AppSettingsState.ConfigurationState> {
 
     // this is how we're going to call the component from different classes
     companion object {
@@ -20,15 +19,15 @@ open class AppSettingsState :
             get() = ServiceManager.getService(AppSettingsState::class.java)
     }
 
-    private var reminderState: ConfigurationState = ConfigurationState(false, listOf())
+    private var state: ConfigurationState = ConfigurationState()
 
     override fun getState(): ConfigurationState {
-        return reminderState
+        return state
     }
 
     override fun loadState(state: ConfigurationState) {
-        reminderState = ConfigurationState(false, state.list)
+        this.state = ConfigurationState(false, state.list)
     }
 
-    class ConfigurationState(var enabled: Boolean = false, var list: List<String>)
+    class ConfigurationState(var enabled: Boolean = false, var list: List<String> = listOf())
 }

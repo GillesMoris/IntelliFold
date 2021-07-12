@@ -1,6 +1,6 @@
 <idea-plugin>
     <id>com.github.gillesmoris.intellifold</id>
-    <name>intellifold</name>
+    <name>IntelliFold</name>
     <vendor>gillesmoris</vendor>
 
     <!-- Product and plugin compatibility requirements -->
@@ -21,6 +21,6 @@
         <applicationConfigurable parentId="tools"
                                  instance="com.github.gillesmoris.intellifold.settings.AppSettingsConfigurable"
                                  id="com.github.gillesmoris.intellifold.settings.AppSettingsConfigurable"
-                                 displayName="Intellifold"/>
+                                 displayName="IntelliFold"/>
     </extensions>
 </idea-plugin>

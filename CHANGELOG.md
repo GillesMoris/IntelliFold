@@ -1,6 +1,6 @@
 <!-- Keep a Changelog guide -> https://keepachangelog.com -->
 
-# intellifold Changelog
+# IntelliFold Changelog
 
 ## [Unreleased]
 ### Added

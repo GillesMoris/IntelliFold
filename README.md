@@ -1,4 +1,4 @@
-# intellifold
+# IntelliFold
 
 ![Build](https://github.com/GillesMoris/intellifold/workflows/Build/badge.svg)
 [![Version](https://img.shields.io/jetbrains/plugin/v/17156.svg)](https://plugins.jetbrains.com/plugin/17156)
@@ -24,7 +24,7 @@ Supported languages:
 
 - Using IDE built-in plugin system:
   
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "intellifold"</kbd> >
+  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "IntelliFold"</kbd> >
   <kbd>Install Plugin</kbd>
   
 - Manually:

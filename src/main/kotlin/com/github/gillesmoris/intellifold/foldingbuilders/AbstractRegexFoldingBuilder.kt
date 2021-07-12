@@ -16,13 +16,11 @@ import com.intellij.util.containers.toArray
 abstract class AbstractRegexFoldingBuilder : FoldingBuilderEx(), DumbAware {
     var regexes: List<Regex> = emptyList()
 
-    fun updateRegexes() {
-        regexes = AppSettingsState.instance.state.list.map { Regex(it) }
-    }
-
     override fun buildFoldRegions(root: PsiElement, document: Document, quick: Boolean): Array<FoldingDescriptor> {
-        if (quick || !AppSettingsState.instance.state.enabled) return emptyArray()
-        updateRegexes()
+        val project = root.project
+        val settings = AppSettingsState.getInstance(project)
+        if (quick || !settings.state.enabled) return emptyArray()
+        regexes = settings.state.list.map { Regex(it) }
         val descriptors = buildFoldRegionsImpl(root, document)
         return descriptors.toArray(FoldingDescriptor.EMPTY)
     }

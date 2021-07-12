@@ -17,8 +17,8 @@
     </actions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.gillesmoris.intellifold.settings.AppSettingsState"/>
-        <applicationConfigurable parentId="tools"
+        <projectService serviceImplementation="com.github.gillesmoris.intellifold.settings.AppSettingsState"/>
+        <projectConfigurable parentId="tools"
                                  instance="com.github.gillesmoris.intellifold.settings.AppSettingsConfigurable"
                                  id="com.github.gillesmoris.intellifold.settings.AppSettingsConfigurable"
                                  displayName="IntelliFold"/>

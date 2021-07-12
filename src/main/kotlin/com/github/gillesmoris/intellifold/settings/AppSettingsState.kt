@@ -4,6 +4,7 @@ import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
+import com.intellij.openapi.project.Project
 
 /**
  * Supports storing the application settings in a persistent way.
@@ -13,10 +14,10 @@ import com.intellij.openapi.components.Storage
 @State(name = "com.github.gillesmoris.intellifold.settings", storages = [Storage("intellifold-plugin.xml")])
 open class AppSettingsState : PersistentStateComponent<AppSettingsState.ConfigurationState> {
 
-    // this is how we're going to call the component from different classes
     companion object {
-        val instance: AppSettingsState
-            get() = ServiceManager.getService(AppSettingsState::class.java)
+        fun getInstance(project: Project): AppSettingsState {
+            return ServiceManager.getService(project, AppSettingsState::class.java)
+        }
     }
 
     private var state: ConfigurationState = ConfigurationState()
@@ -29,5 +30,5 @@ open class AppSettingsState : PersistentStateComponent<AppSettingsState.Configur
         this.state = state
     }
 
-    class ConfigurationState(var enabled: Boolean = false, var list: List<String> = listOf())
+    data class ConfigurationState(var enabled: Boolean = false, var list: List<String> = listOf())
 }

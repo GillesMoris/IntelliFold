@@ -1,5 +1,6 @@
 package com.github.gillesmoris.intellifold.settings
 
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.Messages
 import com.intellij.ui.IdeBorderFactory
 import com.intellij.ui.JBColor
@@ -23,9 +24,9 @@ val TITLE_INSETS = JBUI.insetsTop(NR_TITLE_INSETS)
 /**
  * Supports creating and managing a [JPanel] for the Settings Dialog.
  */
-class AppSettingsComponent {
+class AppSettingsComponent(private val project: Project) {
     private val regexesModel = DefaultListModel<String>()
-    private val regexField = RegexPanel(regexesModel)
+    private val regexField = RegexPanel(regexesModel, project)
     val panel: JPanel = FormBuilder.createFormBuilder()
         .addComponentFillVertically(regexField, 1)
         .panel
@@ -47,7 +48,7 @@ class AppSettingsComponent {
 
     // Shamelessly stolen from IntelliJ Community
     // https://github.com/JetBrains/intellij-community/blob/cefe3d90e0d1371f05a7555e3fdbdcef2c70c647/platform/lang-impl/src/com/intellij/openapi/fileTypes/impl/FileTypeConfigurable.java#L630
-    internal class RegexPanel(private val model: DefaultListModel<String>) : JPanel() {
+    internal class RegexPanel(private val model: DefaultListModel<String>, private val project: Project) : JPanel() {
         private val list = JBList(model)
 
         init {
@@ -67,7 +68,8 @@ class AppSettingsComponent {
             val scrollPane: JScrollPane = JBScrollPane(list)
             add(scrollPane, BorderLayout.CENTER)
             scrollPane.border = JBUI.Borders.customLine(JBColor.border(), 0, 1, 1, 1)
-            border = IdeBorderFactory.createTitledBorder("Regexes:", false, TITLE_INSETS).setShowLine(false)
+            val title = "Regexes for project ${project.name}:"
+            border = IdeBorderFactory.createTitledBorder(title, false, TITLE_INSETS).setShowLine(false)
         }
 
         private fun addRegex() {

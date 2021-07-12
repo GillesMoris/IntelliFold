@@ -1,25 +1,34 @@
 package com.github.gillesmoris.intellifold.settings
 
 import com.intellij.openapi.ui.Messages
-import com.intellij.ui.*
+import com.intellij.ui.IdeBorderFactory
+import com.intellij.ui.JBColor
+import com.intellij.ui.ListUtil
+import com.intellij.ui.ScrollingUtil
+import com.intellij.ui.ToolbarDecorator
 import com.intellij.ui.components.JBList
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.util.ui.FormBuilder
 import com.intellij.util.ui.JBUI
 import java.awt.BorderLayout
-import javax.swing.*
+import javax.swing.DefaultListModel
+import javax.swing.JComponent
+import javax.swing.JPanel
+import javax.swing.JScrollPane
+import javax.swing.ListSelectionModel
 
-val TITLE_INSETS = JBUI.insetsTop(8);
+const val NR_TITLE_INSETS = 8
+val TITLE_INSETS = JBUI.insetsTop(NR_TITLE_INSETS)
 
 /**
  * Supports creating and managing a [JPanel] for the Settings Dialog.
  */
 class AppSettingsComponent {
     private val regexesModel = DefaultListModel<String>()
-    private val regexField = RegexPanel(regexesModel);
+    private val regexField = RegexPanel(regexesModel)
     val panel: JPanel = FormBuilder.createFormBuilder()
-            .addComponentFillVertically(regexField, 1)
-            .panel
+        .addComponentFillVertically(regexField, 1)
+        .panel
 
     var regexes: List<String>
         get() {
@@ -47,13 +56,13 @@ class AppSettingsComponent {
             list.setEmptyText("No regexes")
             list.border = JBUI.Borders.empty()
             val decorator: ToolbarDecorator = ToolbarDecorator.createDecorator(list)
-                    .setScrollPaneBorder(JBUI.Borders.empty())
-                    .setPanelBorder(JBUI.Borders.customLine(JBColor.border(), 1, 1, 0, 1))
-                    .setAddAction { _ -> addRegex() }
-                    .setAddActionName("Add Regex")
-                    .setEditAction { _ -> editRegex() }
-                    .setRemoveAction { _ -> removeRegex() }
-                    .disableUpDownActions()
+                .setScrollPaneBorder(JBUI.Borders.empty())
+                .setPanelBorder(JBUI.Borders.customLine(JBColor.border(), 1, 1, 0, 1))
+                .setAddAction { _ -> addRegex() }
+                .setAddActionName("Add Regex")
+                .setEditAction { _ -> editRegex() }
+                .setRemoveAction { _ -> removeRegex() }
+                .disableUpDownActions()
             add(decorator.createPanel(), BorderLayout.NORTH)
             val scrollPane: JScrollPane = JBScrollPane(list)
             add(scrollPane, BorderLayout.CENTER)
@@ -64,7 +73,7 @@ class AppSettingsComponent {
         private fun addRegex() {
             val newRegex = Messages.showInputDialog(list, "Enter regex to fold", "Add Regex", null, null, null)
             if (newRegex.isNullOrEmpty()) {
-                return  // canceled or empty
+                return // canceled or empty
             }
             model.addElement(newRegex)
             ScrollingUtil.selectItem(list, newRegex)
@@ -75,7 +84,7 @@ class AppSettingsComponent {
             val oldIndex = list.selectedIndex
             val newRegex = Messages.showInputDialog(list, "Enter regex to fold", "Edit Regex", null, oldRegex, null)
             if (newRegex.isNullOrEmpty()) {
-                return  // canceled or empty
+                return // canceled or empty
             }
             val model = model
             model.set(oldIndex, newRegex)
@@ -86,5 +95,4 @@ class AppSettingsComponent {
             ListUtil.removeSelectedItems(list)
         }
     }
-
 }

@@ -1,11 +1,17 @@
 package com.github.gillesmoris.intellifold.foldingbuilders
 
 import com.intellij.lang.folding.FoldingDescriptor
-import com.intellij.lang.javascript.psi.*
+import com.intellij.lang.javascript.psi.JSBlockStatement
+import com.intellij.lang.javascript.psi.JSCallExpression
+import com.intellij.lang.javascript.psi.JSElementVisitor
+import com.intellij.lang.javascript.psi.JSExpressionStatement
+import com.intellij.lang.javascript.psi.JSIfStatement
+import com.intellij.lang.javascript.psi.JSRecursiveWalkingElementVisitor
+import com.intellij.lang.javascript.psi.JSStatement
 import com.intellij.openapi.editor.Document
 import com.intellij.psi.PsiElement
 
-class JavaScriptRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
+class JavaScriptRegexFoldingBuilder : AbstractRegexFoldingBuilder() {
 
     override fun buildFoldRegionsImpl(root: PsiElement, document: Document): List<FoldingDescriptor> {
         val descriptors = mutableListOf<FoldingDescriptor>()
@@ -60,14 +66,13 @@ class JavaScriptRegexFoldingBuilder() : AbstractRegexFoldingBuilder() {
             }
 
             override fun visitJSStatement(node: JSStatement) {
-                shouldFold = false;
+                shouldFold = false
             }
         })
         return shouldFold
     }
 
     fun shouldFoldCallExpression(node: JSCallExpression): Boolean {
-        return shouldFoldCall(node.methodExpression!!.text);
+        return shouldFoldCall(node.methodExpression!!.text)
     }
-
 }

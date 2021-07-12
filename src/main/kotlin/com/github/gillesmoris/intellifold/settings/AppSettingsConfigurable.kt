@@ -19,7 +19,7 @@ class AppSettingsConfigurable : Configurable {
         return mySettingsComponent?.getPreferredFocusedComponent()
     }
 
-    override fun createComponent(): JComponent? {
+    override fun createComponent(): JComponent {
         mySettingsComponent = AppSettingsComponent()
         return mySettingsComponent!!.panel
     }

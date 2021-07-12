@@ -7,6 +7,7 @@ import com.intellij.ui.JBColor
 import com.intellij.ui.ListUtil
 import com.intellij.ui.ScrollingUtil
 import com.intellij.ui.ToolbarDecorator
+import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.components.JBList
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.util.ui.FormBuilder
@@ -26,10 +27,20 @@ val TITLE_INSETS = JBUI.insetsTop(NR_TITLE_INSETS)
  */
 class ProjectSettingsComponent(project: Project) {
     private val regexesModel = DefaultListModel<String>()
+    private val commentCheckBox = JBCheckBox("Fold code comments")
     private val regexField = RegexPanel(regexesModel, project)
     val panel: JPanel = FormBuilder.createFormBuilder()
+        .addComponent(commentCheckBox)
         .addComponentFillVertically(regexField, 1)
         .panel
+
+    var commentsEnabled: Boolean
+        get() {
+            return commentCheckBox.model.isSelected
+        }
+        set(value) {
+            commentCheckBox.model.isSelected = value
+        }
 
     var regexes: List<String>
         get() {

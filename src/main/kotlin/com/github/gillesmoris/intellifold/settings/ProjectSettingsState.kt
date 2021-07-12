@@ -30,5 +30,9 @@ open class ProjectSettingsState : PersistentStateComponent<ProjectSettingsState.
         this.state = state
     }
 
-    data class ConfigurationState(var enabled: Boolean = false, var list: List<String> = listOf())
+    data class ConfigurationState(
+        var enabled: Boolean = false,
+        var commentFoldingEnabled: Boolean = false,
+        var list: List<String> = listOf()
+    )
 }

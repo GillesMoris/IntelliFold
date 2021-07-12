@@ -4,5 +4,9 @@
                              implementationClass="com.github.gillesmoris.intellifold.foldingbuilders.JavaScriptRegexFoldingBuilder"/>
         <lang.foldingBuilder language="TypeScript"
                              implementationClass="com.github.gillesmoris.intellifold.foldingbuilders.JavaScriptRegexFoldingBuilder"/>
+        <lang.foldingBuilder language="JavaScript"
+                             implementationClass="com.github.gillesmoris.intellifold.foldingbuilders.JavaScriptCommentFoldingBuilder"/>
+        <lang.foldingBuilder language="TypeScript"
+                             implementationClass="com.github.gillesmoris.intellifold.foldingbuilders.JavaScriptCommentFoldingBuilder"/>
     </extensions>
 </idea-plugin>

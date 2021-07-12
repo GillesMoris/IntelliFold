@@ -24,22 +24,29 @@ class ProjectSettingsConfigurable(private val project: Project) : Configurable {
 
     override fun isModified(): Boolean {
         val state = ProjectSettingsState.getInstance(project).state
+        val commentFoldingEnabled = mySettingsComponent!!.commentsEnabled
         val regexes = mySettingsComponent!!.regexes
-        return state.list != regexes
+        return state.list != regexes || state.commentFoldingEnabled != commentFoldingEnabled
     }
 
     override fun apply() {
         val settings = ProjectSettingsState.getInstance(project)
+        val oldCommentFoldingEnabled = settings.state.commentFoldingEnabled
+        val newCommentFoldingEnabled = mySettingsComponent!!.commentsEnabled
         val oldRegexes = settings.state.list
         val newRegexes = mySettingsComponent!!.regexes
+        settings.state.commentFoldingEnabled = newCommentFoldingEnabled
         settings.state.list = newRegexes
-        if (settings.state.enabled && oldRegexes != newRegexes) {
+        if (settings.state.enabled &&
+            (oldRegexes != newRegexes || oldCommentFoldingEnabled != newCommentFoldingEnabled)
+        ) {
             FileContentUtil.reparseOpenedFiles()
         }
     }
 
     override fun reset() {
         val state = ProjectSettingsState.getInstance(project).state
+        mySettingsComponent?.commentsEnabled = state.commentFoldingEnabled
         mySettingsComponent?.regexes = state.list
     }
 

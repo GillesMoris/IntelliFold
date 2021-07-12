@@ -11,8 +11,8 @@ import javax.swing.JComponent
 class AppSettingsConfigurable : Configurable {
     private var mySettingsComponent: AppSettingsComponent? = null
 
-    override fun getDisplayName(): @Nls(capitalization = Nls.Capitalization.Title) String? {
-        return "Intellifold"
+    override fun getDisplayName(): @Nls(capitalization = Nls.Capitalization.Title) String {
+        return "IntelliFold"
     }
 
     override fun getPreferredFocusedComponent(): JComponent? {

@@ -11,15 +11,13 @@ const val DISABLE_TEXT = "Disable Folding"
 
 class ToggleFoldingAction : AnAction(ENABLE_TEXT, "", nonActiveIcon) {
 
-    var enabled = false
-
     override fun actionPerformed(event: AnActionEvent) {
-        enabled = !enabled
-        AppSettingsState.instance.state.enabled = enabled
+        AppSettingsState.instance.state.enabled = !AppSettingsState.instance.state.enabled
         FileContentUtil.reparseOpenedFiles()
     }
 
     override fun update(e: AnActionEvent) {
+        val enabled = AppSettingsState.instance.state.enabled;
         e.presentation.text = if (enabled) DISABLE_TEXT else ENABLE_TEXT
         e.presentation.icon = if (enabled) activeIcon else nonActiveIcon
     }

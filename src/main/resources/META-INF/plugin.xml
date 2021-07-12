@@ -17,10 +17,10 @@
     </actions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <projectService serviceImplementation="com.github.gillesmoris.intellifold.settings.AppSettingsState"/>
+        <projectService serviceImplementation="com.github.gillesmoris.intellifold.settings.ProjectSettingsState"/>
         <projectConfigurable parentId="tools"
-                                 instance="com.github.gillesmoris.intellifold.settings.AppSettingsConfigurable"
-                                 id="com.github.gillesmoris.intellifold.settings.AppSettingsConfigurable"
+                                 instance="com.github.gillesmoris.intellifold.settings.ProjectSettingsConfigurable"
+                                 id="com.github.gillesmoris.intellifold.settings.ProjectSettingsConfigurable"
                                  displayName="IntelliFold"/>
     </extensions>
 </idea-plugin>

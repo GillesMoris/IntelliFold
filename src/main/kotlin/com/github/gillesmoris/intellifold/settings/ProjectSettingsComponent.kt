@@ -24,7 +24,7 @@ val TITLE_INSETS = JBUI.insetsTop(NR_TITLE_INSETS)
 /**
  * Supports creating and managing a [JPanel] for the Settings Dialog.
  */
-class AppSettingsComponent(private val project: Project) {
+class ProjectSettingsComponent(project: Project) {
     private val regexesModel = DefaultListModel<String>()
     private val regexField = RegexPanel(regexesModel, project)
     val panel: JPanel = FormBuilder.createFormBuilder()

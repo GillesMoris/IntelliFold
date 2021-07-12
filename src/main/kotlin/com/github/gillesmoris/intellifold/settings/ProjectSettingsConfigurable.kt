@@ -6,8 +6,8 @@ import com.intellij.util.FileContentUtil
 import org.jetbrains.annotations.Nls
 import javax.swing.JComponent
 
-class AppSettingsConfigurable(private val project: Project) : Configurable {
-    private var mySettingsComponent: AppSettingsComponent? = null
+class ProjectSettingsConfigurable(private val project: Project) : Configurable {
+    private var mySettingsComponent: ProjectSettingsComponent? = null
 
     override fun getDisplayName(): @Nls(capitalization = Nls.Capitalization.Title) String {
         return "IntelliFold"
@@ -18,18 +18,18 @@ class AppSettingsConfigurable(private val project: Project) : Configurable {
     }
 
     override fun createComponent(): JComponent {
-        mySettingsComponent = AppSettingsComponent(project)
+        mySettingsComponent = ProjectSettingsComponent(project)
         return mySettingsComponent!!.panel
     }
 
     override fun isModified(): Boolean {
-        val state = AppSettingsState.getInstance(project).state
+        val state = ProjectSettingsState.getInstance(project).state
         val regexes = mySettingsComponent!!.regexes
         return state.list != regexes
     }
 
     override fun apply() {
-        val settings = AppSettingsState.getInstance(project)
+        val settings = ProjectSettingsState.getInstance(project)
         val oldRegexes = settings.state.list
         val newRegexes = mySettingsComponent!!.regexes
         settings.state.list = newRegexes
@@ -39,7 +39,7 @@ class AppSettingsConfigurable(private val project: Project) : Configurable {
     }
 
     override fun reset() {
-        val state = AppSettingsState.getInstance(project).state
+        val state = ProjectSettingsState.getInstance(project).state
         mySettingsComponent?.regexes = state.list
     }
 

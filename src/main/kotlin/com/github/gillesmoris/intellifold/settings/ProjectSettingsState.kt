@@ -12,11 +12,11 @@ import com.intellij.openapi.project.Project
  * these persistent application settings are stored.
  */
 @State(name = "com.github.gillesmoris.intellifold.settings", storages = [Storage("intellifold-plugin.xml")])
-open class AppSettingsState : PersistentStateComponent<AppSettingsState.ConfigurationState> {
+open class ProjectSettingsState : PersistentStateComponent<ProjectSettingsState.ConfigurationState> {
 
     companion object {
-        fun getInstance(project: Project): AppSettingsState {
-            return ServiceManager.getService(project, AppSettingsState::class.java)
+        fun getInstance(project: Project): ProjectSettingsState {
+            return ServiceManager.getService(project, ProjectSettingsState::class.java)
         }
     }
 

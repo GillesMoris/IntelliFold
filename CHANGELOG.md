@@ -4,4 +4,9 @@
 
 ## [Unreleased]
 ### Added
-- Initial scaffold created from [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template)
+- Initial scaffold created from [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template).
+- Added "Enable/Disable" folding button.
+- Added basic regex based expression folding for Java and JS/TS.
+- Added project-scoped settings menu with configurable regex list.
+- Added basic comment folding for Java and JS/TS.
+- Added checkbox to settings menu to enable/disable comment folding.

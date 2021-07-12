@@ -1,8 +1,8 @@
 <idea-plugin>
     <extensions defaultExtensionNs="com.intellij">
         <lang.foldingBuilder language="JAVA"
-                             implementationClass="com.github.gillesmoris.intellifold.foldingbuilders.JavaRegexFoldingBuilder"/>
+                             implementationClass="com.github.gillesmoris.intellifold.foldingbuilders.java.JavaRegexFoldingBuilder"/>
         <lang.foldingBuilder language="JAVA"
-                             implementationClass="com.github.gillesmoris.intellifold.foldingbuilders.JavaCommentFoldingBuilder"/>
+                             implementationClass="com.github.gillesmoris.intellifold.foldingbuilders.java.JavaCommentFoldingBuilder"/>
     </extensions>
 </idea-plugin>

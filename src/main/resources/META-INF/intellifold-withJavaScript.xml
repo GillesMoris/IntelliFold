@@ -1,12 +1,12 @@
 <idea-plugin>
     <extensions defaultExtensionNs="com.intellij">
         <lang.foldingBuilder language="JavaScript"
-                             implementationClass="com.github.gillesmoris.intellifold.foldingbuilders.JavaScriptRegexFoldingBuilder"/>
+                             implementationClass="com.github.gillesmoris.intellifold.foldingbuilders.js.JavaScriptRegexFoldingBuilder"/>
         <lang.foldingBuilder language="TypeScript"
-                             implementationClass="com.github.gillesmoris.intellifold.foldingbuilders.JavaScriptRegexFoldingBuilder"/>
+                             implementationClass="com.github.gillesmoris.intellifold.foldingbuilders.js.JavaScriptRegexFoldingBuilder"/>
         <lang.foldingBuilder language="JavaScript"
-                             implementationClass="com.github.gillesmoris.intellifold.foldingbuilders.JavaScriptCommentFoldingBuilder"/>
+                             implementationClass="com.github.gillesmoris.intellifold.foldingbuilders.js.JavaScriptCommentFoldingBuilder"/>
         <lang.foldingBuilder language="TypeScript"
-                             implementationClass="com.github.gillesmoris.intellifold.foldingbuilders.JavaScriptCommentFoldingBuilder"/>
+                             implementationClass="com.github.gillesmoris.intellifold.foldingbuilders.js.JavaScriptCommentFoldingBuilder"/>
     </extensions>
 </idea-plugin>

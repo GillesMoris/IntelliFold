@@ -1,5 +1,6 @@
-package com.github.gillesmoris.intellifold.foldingbuilders
+package com.github.gillesmoris.intellifold.foldingbuilders.js
 
+import com.github.gillesmoris.intellifold.foldingbuilders.AbstractCommentFoldingBuilder
 import com.intellij.lang.javascript.psi.JSRecursiveWalkingElementVisitor
 import com.intellij.psi.PsiComment
 import com.intellij.psi.PsiElement

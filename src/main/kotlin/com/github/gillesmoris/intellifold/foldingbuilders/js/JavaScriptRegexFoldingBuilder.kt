@@ -1,5 +1,7 @@
-package com.github.gillesmoris.intellifold.foldingbuilders
+package com.github.gillesmoris.intellifold.foldingbuilders.js
 
+import com.github.gillesmoris.intellifold.foldingbuilders.AbstractRegexFoldingBuilder
+import com.github.gillesmoris.intellifold.foldingbuilders.makeRange
 import com.intellij.lang.folding.FoldingDescriptor
 import com.intellij.lang.javascript.psi.JSBlockStatement
 import com.intellij.lang.javascript.psi.JSCallExpression

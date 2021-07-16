@@ -3,6 +3,8 @@
 # IntelliFold Changelog
 
 ## [Unreleased]
+### Added
+- Added plugin icon for light and dark themes.
 ## [0.1.0]
 ### Added
 - Initial scaffold created from [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template).

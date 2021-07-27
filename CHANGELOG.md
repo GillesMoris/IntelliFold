@@ -3,6 +3,8 @@
 # IntelliFold Changelog
 
 ## [Unreleased]
+### Added
+- Added support for platform version 2021.2.
 ## [0.1.1]
 ### Added
 - Added plugin icon for light and dark themes.

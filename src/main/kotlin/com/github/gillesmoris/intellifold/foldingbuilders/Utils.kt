@@ -1,5 +1,6 @@
 package com.github.gillesmoris.intellifold.foldingbuilders
 
+import com.intellij.lang.ASTNode
 import com.intellij.lang.folding.FoldingDescriptor
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
@@ -28,6 +29,18 @@ fun makeRange(node: PsiElement): TextRange {
     return TextRange(startOffset, node.endOffset)
 }
 
+fun createFoldingDescriptor(element: PsiElement): FoldingDescriptor {
+    return createFoldingDescriptor(element.node, makeRange(element))
+}
+
+/**
+ * Creates a folding descriptor with the `neverExpands` param set to true, as the goal for IntelliFold is to completely
+ * hide the regions it detects for folding.
+ */
+fun createFoldingDescriptor(node: ASTNode, textRange: TextRange): FoldingDescriptor {
+    return FoldingDescriptor(node, textRange, null, setOf(), true)
+}
+
 fun mergeFoldingDescriptors(foldingDescriptors: Array<FoldingDescriptor>): Array<FoldingDescriptor> {
     foldingDescriptors.sortBy { it.range.startOffset }
     val mergedDescriptors = mutableListOf<FoldingDescriptor>()
@@ -47,7 +60,7 @@ fun mergeFoldingDescriptors(foldingDescriptors: Array<FoldingDescriptor>): Array
             mergedRange = TextRange(mergedRangeStart, mergedRangeEnd)
             index += 1
         }
-        mergedDescriptors.add(FoldingDescriptor(mergedRangeNode, mergedRange))
+        mergedDescriptors.add(createFoldingDescriptor(mergedRangeNode, mergedRange))
         index += 1
     }
     return mergedDescriptors.toArray(FoldingDescriptor.EMPTY)

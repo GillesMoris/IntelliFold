@@ -1,7 +1,7 @@
 package com.github.gillesmoris.intellifold.foldingbuilders.js
 
 import com.github.gillesmoris.intellifold.foldingbuilders.AbstractRegexFoldingBuilder
-import com.github.gillesmoris.intellifold.foldingbuilders.makeRange
+import com.github.gillesmoris.intellifold.foldingbuilders.createFoldingDescriptor
 import com.intellij.lang.folding.FoldingDescriptor
 import com.intellij.lang.javascript.psi.JSBlockStatement
 import com.intellij.lang.javascript.psi.JSCallExpression
@@ -21,7 +21,7 @@ class JavaScriptRegexFoldingBuilder : AbstractRegexFoldingBuilder() {
             root.accept(object : JSRecursiveWalkingElementVisitor() {
                 override fun visitJSIfStatement(node: JSIfStatement) {
                     if (shouldFoldIfStatement(node) == true) {
-                        descriptors.add(FoldingDescriptor(node, makeRange(node)))
+                        descriptors.add(createFoldingDescriptor(node))
                         return
                     }
                     super.visitJSIfStatement(node)
@@ -30,7 +30,7 @@ class JavaScriptRegexFoldingBuilder : AbstractRegexFoldingBuilder() {
                 override fun visitJSExpressionStatement(node: JSExpressionStatement) {
                     val expression = node.expression
                     if (expression is JSCallExpression && shouldFoldCallExpression(expression)) {
-                        descriptors.add(FoldingDescriptor(node, makeRange(node)))
+                        descriptors.add(createFoldingDescriptor(node))
                         return
                     }
                     super.visitJSExpressionStatement(node)

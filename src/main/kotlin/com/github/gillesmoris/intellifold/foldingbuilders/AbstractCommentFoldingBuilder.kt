@@ -16,7 +16,7 @@ abstract class AbstractCommentFoldingBuilder : FoldingBuilderEx(), DumbAware {
         if (quick || !settingsState.enabled || !settingsState.commentFoldingEnabled) return emptyArray()
         val descriptors = mutableListOf<FoldingDescriptor>()
         visitComments(root) { comment: PsiComment ->
-            descriptors.add(FoldingDescriptor(comment, makeRange(comment)))
+            descriptors.add(createFoldingDescriptor(comment))
         }
         return descriptors.toArray(FoldingDescriptor.EMPTY)
     }

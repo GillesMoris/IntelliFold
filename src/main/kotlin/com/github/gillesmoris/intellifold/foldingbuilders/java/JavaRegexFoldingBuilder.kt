@@ -1,7 +1,7 @@
 package com.github.gillesmoris.intellifold.foldingbuilders.java
 
 import com.github.gillesmoris.intellifold.foldingbuilders.AbstractRegexFoldingBuilder
-import com.github.gillesmoris.intellifold.foldingbuilders.makeRange
+import com.github.gillesmoris.intellifold.foldingbuilders.createFoldingDescriptor
 import com.intellij.lang.folding.FoldingDescriptor
 import com.intellij.openapi.editor.Document
 import com.intellij.psi.JavaElementVisitor
@@ -21,7 +21,7 @@ class JavaRegexFoldingBuilder : AbstractRegexFoldingBuilder() {
             root.accept(object : JavaRecursiveElementVisitor() {
                 override fun visitIfStatement(statement: PsiIfStatement) {
                     if (shouldFoldIfStatement(statement) == true) {
-                        descriptors.add(FoldingDescriptor(statement, makeRange(statement)))
+                        descriptors.add(createFoldingDescriptor(statement))
                         return
                     }
                     super.visitIfStatement(statement)
@@ -30,7 +30,7 @@ class JavaRegexFoldingBuilder : AbstractRegexFoldingBuilder() {
                 override fun visitExpressionStatement(statement: PsiExpressionStatement) {
                     val expression = statement.expression
                     if (expression is PsiMethodCallExpression && shouldFoldCallExpression(expression)) {
-                        descriptors.add(FoldingDescriptor(statement, makeRange(statement)))
+                        descriptors.add(createFoldingDescriptor(statement))
                         return
                     }
                     super.visitExpressionStatement(statement)

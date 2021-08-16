@@ -5,6 +5,9 @@
 ## [Unreleased]
 ### Added
 - Added support for platform version 2021.2.
+### Changed
+- Adjacent and overlapping fold regions are now merged into a single region.
+- Fold regions are now non-expandable.
 ## [0.1.1]
 ### Added
 - Added plugin icon for light and dark themes.

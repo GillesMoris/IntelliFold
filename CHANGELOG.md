@@ -3,6 +3,13 @@
 # IntelliFold Changelog
 
 ## [Unreleased]
+### Added
+- Added support for platform version 2021.2.
+### Changed
+- Adjacent and overlapping fold regions are now merged into a single region.
+- Fold regions are now non-expandable.
+### Fixed
+- Fixed an issue where consecutive line comments would not be folded correctly.
 ## [0.1.1]
 ### Added
 - Added plugin icon for light and dark themes.

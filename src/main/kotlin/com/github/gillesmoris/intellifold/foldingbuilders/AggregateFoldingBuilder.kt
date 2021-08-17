@@ -6,22 +6,21 @@ import com.intellij.lang.folding.FoldingBuilderEx
 import com.intellij.lang.folding.FoldingDescriptor
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.project.DumbAware
-import com.intellij.psi.PsiComment
 import com.intellij.psi.PsiElement
 import com.intellij.util.containers.toArray
 
-abstract class AbstractCommentFoldingBuilder : FoldingBuilderEx(), DumbAware {
+open class AggregateFoldingBuilder(val foldingBuilders: Array<FoldingBuilderEx>) :
+    FoldingBuilderEx(),
+    DumbAware {
     override fun buildFoldRegions(root: PsiElement, document: Document, quick: Boolean): Array<FoldingDescriptor> {
         val settingsState = ProjectSettingsState.getInstance(root.project).state
-        if (quick || !settingsState.enabled || !settingsState.commentFoldingEnabled) return emptyArray()
+        if (quick || !settingsState.enabled) return emptyArray()
         val descriptors = mutableListOf<FoldingDescriptor>()
-        visitComments(root) { comment: PsiComment ->
-            descriptors.add(createFoldingDescriptor(comment))
+        for (foldingBuilder in foldingBuilders) {
+            descriptors.addAll(foldingBuilder.buildFoldRegions(root, document, quick))
         }
-        return descriptors.toArray(FoldingDescriptor.EMPTY)
+        return mergeFoldingDescriptors(descriptors.toArray(FoldingDescriptor.EMPTY))
     }
-
-    protected abstract fun visitComments(root: PsiElement, visitor: (PsiComment) -> Unit)
 
     override fun getPlaceholderText(node: ASTNode): String {
         return ""

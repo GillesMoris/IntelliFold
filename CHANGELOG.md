@@ -3,6 +3,7 @@
 # IntelliFold Changelog
 
 ## [Unreleased]
+## [0.1.2]
 ### Added
 - Added support for platform version 2021.2.
 ### Changed
